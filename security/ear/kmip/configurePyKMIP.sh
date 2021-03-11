@@ -11,14 +11,20 @@ if [ -f /etc/redhat-release ]; then
 else
   OS=ubuntu 
 fi
+
 echo Determined system is $OS.
-
 echo Updating system.. this might take a while.
-
-yum update -y --allowerasing
-
-echo Installing python3 and pip3...
-yum install -y python3 git
+if [ $OS == "centos" ]; then
+  yum update -y --allowerasing
+  echo Installing python3 and pip3...
+  yum install -y python3 git
+else
+  sudo apt update
+  sudo apt upgrade
+  sudo apt autoremove
+  echo Installing python3 and pip3...
+  apt install -y python3 git
+fi
 
 echo "Installing (cloning) PyKMIP..."
 
