@@ -3,9 +3,10 @@ if [[ $EUID -ne 0 ]]; then
    exit 1
 fi
 
-# This takes a long time.
+echo Updating system.. this might take a while.
 yum update -y –allowerasing
 
+echo Installing python3 and pip3...
 yum install -y python3 git
 git clone https://github.com/OpenKMIP/PyKMIP.git
 
@@ -15,6 +16,8 @@ cd PyKMIP
 # all python dependencies installed globally.
 pip3 install -r requirements.txt
 python3 setup.py install
+
+echo Installing PyKMIP...
 
 mkdir /etc/pykmip
 cp ./.travis/pykmip.conf /etc/pykmip/pykmip.conf
@@ -42,27 +45,26 @@ cd -
 mkdir -p /var/log/pykmip
 chmod 777 /var/log/pykmip
 
-###########################################################
+echo Finished PyKMIP setup.
+echo
 
-# Run the server until Ctrl-C. 
-# From <install-loc>/PyKMIP:
-# PYTHONPATH=. python3 bin/run_server.py
+echo "To run the server (from <install-loc>/PyKMIP):"
+echo "PYTHONPATH=. python3 bin/run_server.py"
+echo
+echo You can run a test client (in a separate window). 
+echo "Also helpful to tail the log file in a 3rd (tail -f /var/log/pykmip/server.log)"
+echo "From <install-loc>/PyKMIP:"
+echo "PYTHONPATH=. python3 kmip/demos/pie/create.py -a AES -l 256"
+echo
 
-# You can run a test client (in a separate window). 
-# Also helpful to tail the log file in a 3rd (tail -f /var/log/pykmip/server.log)
-# From <install-loc>/PyKMIP:
-# PYTHONPATH=. python3 kmip/demos/pie/create.py -a AES -l 256
-
-###########################################################
-
-# You can also test the certs themselves, outside of Mongo or PyKMIP.
-
-# server. Note: no CAfile specified.
-# run this from /etc/pkymip/certs
-# openssl s_server -accept 5696 -www -key server.key -cert server.crt
-
-# client. Note: no CAfile specified.
-# Also note: no protocol specified. Had to switch from SSLv23 to TLSv1.
-# options included SSLv3 TLSv1 TLSv1.1 TLSv1.2. -tls1_2
-# openssl s_client -connect localhost:5696
+echo You can also test the certs themselves, outside of Mongo or PyKMIP.
+echo "To run an openssl server: (from /etc/pkymip/certs)
+echo "openssl s_server -accept 5696 -www -key server.key -cert server.crt"
+echo "Note: no CAfile specified."
+echo
+echo "To run an openssl client: 
+echo "openssl s_client -connect localhost:5696"
+echo "Note: no CAfile specified."
+echo "Also note: no protocol specified. Had to switch from SSLv23 to TLSv1.
+echo "options included SSLv3 TLSv1 TLSv1.1 TLSv1.2. -tls1_2"
 

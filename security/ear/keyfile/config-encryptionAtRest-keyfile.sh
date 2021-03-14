@@ -1,3 +1,5 @@
+# Configures mongod for encryption at rest using local keyfile.
+
 echo THIS SCRIPT ERASES ANY EXISTING DATABASE AT /var/lib/mongo.
 read -rsp $'Press any key to acknowledge and continue...\n' -n1 key
 
