@@ -34,6 +34,7 @@ sed -i 's/key.pem/server.key/g' $INSTALL_DIR/server.conf
 
 # CentOS8 doesn't like Basic - leads to "unsupported protocol"
 # See here: https://pykmip.readthedocs.io/en/latest/server.html
+# This works on both CentOS and Ubuntu
 sed -i 's/Basic/TLS1.2/g' $INSTALL_DIR/server.conf
 sed -i 's/SSLv23/TLS/g' $INSTALL_DIR/pykmip.conf
 

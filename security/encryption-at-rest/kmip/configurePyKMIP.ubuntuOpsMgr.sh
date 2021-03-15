@@ -35,12 +35,16 @@ python3 setup.py install
 cp .travis/pykmip.conf $INSTALL_DIR/pykmip.conf
 sed -i 's/key.pem/server.key/g' $INSTALL_DIR/pykmip.conf
 sed -i 's/cert.pem/server.crt/g' $INSTALL_DIR/pykmip.conf
-# required to avoid SSL: UNSUPPORTED_PROTOCOL errors on CentOS (not Ubuntu)
-sed -i 's/SSLv23/TLSv1/g' $INSTALL_DIR/pykmip.conf
 
 cp .travis/server.conf $INSTALL_DIR/server.conf
 sed -i 's/cert.pem/server.crt/g' $INSTALL_DIR/server.conf
 sed -i 's/key.pem/server.key/g' $INSTALL_DIR/server.conf
+
+# CentOS8 doesn't like Basic - leads to "unsupported protocol"
+# See here: https://pykmip.readthedocs.io/en/latest/server.html
+# This works on both CentOS and Ubuntu
+sed -i 's/Basic/TLS1.2/g' $INSTALL_DIR/server.conf
+sed -i 's/SSLv23/TLS/g' $INSTALL_DIR/pykmip.conf
 
 # This is the service binding. 
 # You can't specify 'opsmgr' here, you have to specify the IP address
