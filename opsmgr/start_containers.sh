@@ -35,8 +35,6 @@ JJ_ADDED_PARAMS="-p 2702\${i}:2702\${i} -p 2703\${i}:2703\${i} -p 3306\${i}:3306
 for i in $(seq 1 $NUMBER_TO_CREATE)
 do
     cmd=" docker run "${JJ_ADDED_PARAMS}" "${ADD_HOST_LIST_PARAMS}" --hostname=myserver${i} -d --name automation-agent-container${i} -t mongo/automation-agent /opt/mongodb-mms-automation/bin/mongodb-mms-automation-agent --mmsGroupId=${PROJECTID} --mmsApiKey=${APIKEY} --mmsBaseUrl=http://opsmgr:8080 -logLevel=INFO -logFile=/var/log/mongodb-mms-automation/automation-agent.log"
-echo $cmd
-    #cmd=" docker run -p 2702${i}:2702${i} -p 2703${i}:2703${i} -p 3306${i}:3306${i} "${ADD_HOST_LIST_PARAMS}" --hostname=myserver${i} -d --name automation-agent-container${i} -t mongo/automation-agent /opt/mongodb-mms-automation/bin/mongodb-mms-automation-agent --mmsGroupId=${PROJECTID} --mmsApiKey=${APIKEY} --mmsBaseUrl=http://opsmgr:8080 -logLevel=INFO -logFile=/var/log/mongodb-mms-automation/automation-agent.log"
     eval "${cmd}"
 done
 
