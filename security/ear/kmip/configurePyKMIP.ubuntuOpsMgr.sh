@@ -1,3 +1,5 @@
+#!/bin/bash
+
 INSTALL_DIR=/etc/pykmip
 CURRENT_DIR=$PWD
 
@@ -6,25 +8,13 @@ if [[ $EUID -ne 0 ]]; then
    exit 1
 fi
 
-if [ -f /etc/redhat-release ]; then
-  OS=centos 
-else
-  OS=ubuntu 
-fi
-
-echo Determined system is $OS.
 echo Updating system.. this might take a while.
-if [ $OS == "centos" ]; then
-  yum update -y --allowerasing
-  echo Installing python3 and pip3...
-  yum install -y python3 git
-else
-  sudo apt update
-  sudo apt upgrade
-  sudo apt autoremove
-  echo Installing python3 and pip3...
-  apt install -y python3 git
-fi
+apt update -y
+apt upgrade -y
+apt autoremove -y
+
+echo Installing python3 and pip3...
+apt install -y python3 git
 
 echo "Installing (cloning) PyKMIP..."
 
@@ -49,13 +39,23 @@ cp .travis/server.conf /etc/pykmip/server.conf
 sed -i 's/cert.pem/server.crt/g' /etc/pykmip/server.conf
 sed -i 's/key.pem/server.key/g' /etc/pykmip/server.conf
 
+# This is the service binding. 
+# You can't specify 'opsmgr' here, you have to specify the IP address
+# that is accessible by the Docker containers. The opsmgr host binds
+# to multiple networks - if the PyKMIP server binds to 'opsmgr' it will
+# not be on the Docker nework, and network connections from clients will
+# be refused before the SSL negotiation can start.
+# Note the client config has to match the server config.
+sed -i 's/127.0.0.1/172.17.0.1/g' /etc/pykmip/server.conf
+sed -i 's/127.0.0.1/172.17.0.1/g' /etc/pykmip/pykmip.conf
+
 mkdir -p /etc/pykmip/policies
 cp .travis/policy.json /etc/pykmip/policies/policy.json
 
 echo "Generating certs at /etc/pykmip/certs..."
 mkdir -p /etc/pykmip/certs
 cd /etc/pykmip/certs
-openssl req -newkey rsa:2048 -nodes -keyout server.key -x509 -subj "/CN=localhost" -days 365 -out server.crt
+openssl req -newkey rsa:2048 -nodes -keyout server.key -x509 -subj "/CN=opsmgr" -days 365 -out server.crt
 
 # Required by MongoDB, not by PyKMIP
 cat server.crt server.key > server.pem

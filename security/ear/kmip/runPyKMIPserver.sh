@@ -1,3 +1,5 @@
+#!/bin/bash
+
 INSTALL_DIR=/etc/pykmip/PyKMIP
 
 if [[ $EUID -ne 0 ]]; then
