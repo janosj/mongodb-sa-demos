@@ -52,7 +52,7 @@ sed -i 's/key.pem/server.key/g' $INSTALL_DIR/server.conf
 sed -i "s/127.0.0.1/$DOCKER_NETWORK_IP/g" $INSTALL_DIR/server.conf
 sed -i "s/127.0.0.1/$DOCKER_NETWORK_IP/g" $INSTALL_DIR/pykmip.conf
 
-mkdir -p /etc/pykmip/policies
+mkdir -p $INSTALL_DIR/policies
 cp .travis/policy.json $INSTALL_DIR/policies/policy.json
 
 echo "Generating certs at $CERTS_LOC..."
