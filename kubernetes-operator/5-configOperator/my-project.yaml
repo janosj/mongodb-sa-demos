@@ -1,0 +1,13 @@
+# set baseUrl to internal URL of Ops Manager, including protocol and port,
+# something like: http://ip-172-31-55-163.ec2.internal:8080
+# set orgId to the internal org ID, something like 5ea0ae41f8dfd02d7491a2d4
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: my-project
+data:
+  projectName: Kubernetes Project 1
+  baseUrl: http://ip-172-31-57-179.ec2.internal:8080
+  orgId: 5fa5cd99bebcd4156cff2158
+
