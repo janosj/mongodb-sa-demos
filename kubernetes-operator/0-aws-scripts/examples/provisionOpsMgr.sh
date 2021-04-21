@@ -1,7 +1,8 @@
 #!/bin/bash
 
 # Provisions an EC2 instance to host MongoDB Ops Manager.
-# (Ops Manager is not installed).
+# Note: Ops Manager itself is not installed.
+#       You can find an Ops Manager installation script in the opsmgr-aws demo.
 
 if [[ $EUID -ne 0 ]]; then
    echo "This script must be run as root to update the /etc/hosts file."
