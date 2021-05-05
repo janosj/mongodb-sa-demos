@@ -1,4 +1,4 @@
-# Fast Iteration with MongoDB
+#Fast Iteration with MongoDB
 
 Very simple demonstration to show how MongoDB enables fast iteration. Changes can be made in the application without performing any of the backend schema updates that would be required when using a RDBMS.
 
@@ -8,4 +8,5 @@ Step 1: Just launch this simple web form and submit a record to the database. No
 
 Step 2: Modify the web form with an additional field and reload the web form. Resubmit. Presto! Show the data in MongoDB. Note all fields are instantly queryable. You can create secondary indexes, build data pipelines, run analytics, etc. Note how this is much more functional than a simple key-value data store. With Compass open, you could also show JSON Schema validation at this point, to alleviate any concerns about inconsistent/erroneous data models.
 
+Credits: This demo is a stripped-down version of a demo developed by Matt Groghan ([here](https://github.com/mdg-2018/30-min-data-web-form)), which itself was a node.js adaptation of a MongoDB Atlas demo created by Michael Lynn ([here](https://github.com/mrlynn/30-min-data-web-form)).
 
