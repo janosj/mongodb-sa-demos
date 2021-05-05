@@ -2,7 +2,7 @@
 
 Very simple demonstration to show how MongoDB enables fast iteration. Changes can be made in the application without performing any of the backend schema updates that would be required when using a RDBMS.
 
-<img src="images/LoadingData-Options.png" alt="No Backend Changes" width="800"/>
+<img src="images/MongoDB-easy-to-innovate.png" alt="No Backend Changes" width="800"/>
 
 Step 1: Just launch this simple web form and submit a record to the database. Note how the record looks in MongoDB (I use MongoDB side-by-side with the web form).
 
