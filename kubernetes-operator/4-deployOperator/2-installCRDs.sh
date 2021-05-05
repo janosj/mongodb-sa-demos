@@ -5,5 +5,5 @@ kubectl apply -f https://raw.githubusercontent.com/mongodb/mongodb-enterprise-ku
 echo Verifying:
 kubectl get crd
 #kubectl describe crd <crd-name>
-#kubectl delete cdr <crd-name>
+#kubectl delete crd <crd-name>
 
