@@ -1,5 +1,5 @@
 CONFIG_MAP=cm-persistent-static-1
-ORG_ID=609ee2136fb2f6007106e8ee
+ORG_ID=60a5243602cb1a0071ad345e
 
 # Figure out the URL to use.
 # kubectl get om ops-manager -o jsonpath='{.status.opsManager.url}'

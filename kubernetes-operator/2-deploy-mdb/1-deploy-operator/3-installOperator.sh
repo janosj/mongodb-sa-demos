@@ -14,4 +14,4 @@ kubectl describe deployments mongodb-enterprise-operator -n mongodb
 kubectl get pods --namespace=mongodb --output=wide -w
 
 # To DELETE:
-# kubectl delete -f https://raw.githubusercontent.com/mongodb/mongodb-enterprise-kubernetes/master/mongodb-enterprise.yaml -n mongodb
+# kubectl delete deployment mongodb-enterprise-operator -n mongodb

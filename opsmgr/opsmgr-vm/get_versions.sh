@@ -11,6 +11,7 @@ wget -P /opt/mongodb/mms/mongodb-releases https://downloads.mongodb.com/linux/mo
 wget -P /opt/mongodb/mms/mongodb-releases https://downloads.mongodb.com/linux/mongodb-linux-x86_64-enterprise-ubuntu1804-4.0.20.tgz
 wget -P /opt/mongodb/mms/mongodb-releases https://downloads.mongodb.com/linux/mongodb-linux-x86_64-enterprise-ubuntu1804-3.6.20.tgz
 
+wget -P /opt/mongodb/mms/mongodb-releases https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu1804-x86_64-100.3.1.tgz
 wget -P /opt/mongodb/mms/mongodb-releases https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu1804-x86_64-100.2.0.tgz
 wget -P /opt/mongodb/mms/mongodb-releases https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu1804-x86_64-100.1.0.tgz
 

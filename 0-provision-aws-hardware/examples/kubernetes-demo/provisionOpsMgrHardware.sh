@@ -9,11 +9,11 @@ if [[ $EUID -ne 0 ]]; then
    exit 1
 fi
 
-SCRIPT_LOC=$HOME/github/mongodb-sa-demos/kubernetes-operator/0-aws-scripts
+SCRIPT_LOC=$HOME/github/mongodb-sa-demos/0-provision-aws-hardware
 
 export NODE_PATH=/usr/local/lib/node_modules
 
 # Usage:
 # provisionOpsMgrInstance keyName securityGroupID subnetID tagName tagOwner rootVolumeGB instanceType imageId etcHostname
 
-node $SCRIPT_LOC/provisionEC2Instance.js <awskeyfile> <sg-id> <subnet-id> project-opsmgr <firstname.lastname> 20 t2.medium ami-098f16afa9edf40be opsmgr
+node $SCRIPT_LOC/provisionEC2Instance.js <awskeyfile> <sg-id> <subnet-id> project-opsmgr <firstname.lastname> 30 m4.xlarge ami-098f16afa9edf40be opsmgr
