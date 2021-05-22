@@ -1,0 +1,3 @@
+The zeus dataset is related to computer networks and cybercrime.
+Zeus was an infamous botnet to steal passwords through keystroke logging.
+
