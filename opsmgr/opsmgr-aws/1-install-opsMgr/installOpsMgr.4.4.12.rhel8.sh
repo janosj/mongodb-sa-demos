@@ -75,6 +75,11 @@ echo Copying config file with local mode settings...
 cp /opt/mongodb/mms/conf/conf-mms.properties /opt/mongodb/mms/conf/conf-mms.properties.original
 sed "s/INTERNAL_HOSTNAME/$HOSTNAME/g" conf-mms.properties > /opt/mongodb/mms/conf/conf-mms.properties
 
+echo
+echo "Downloading MongoDB versions (custom step)..."
+./getVersions.sh
+
+
 # STEP 11: Start Ops Manager
 echo
 echo Starting Ops Manager...
@@ -89,10 +94,6 @@ sudo chown mongodb-mms:mongodb-mms /data/headdb
 
 //mkdir /data/filestore
 //sudo chown mongodb-mms:mongodb-mms /data/filestore
-
-echo
-echo Downloading MongoDB versions (custom step)...
-./getVersions.sh
 
 # Trick to get the public DNS of this server
 PUBLIC_HOSTNAME="$(curl http://169.254.169.254/latest/meta-data/public-hostname 2>/dev/null)"

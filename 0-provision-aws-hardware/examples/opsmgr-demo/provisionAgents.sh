@@ -10,7 +10,7 @@ fi
 
 if [ -z "$1" ]; then
     echo "No argument supplied"
-    echo "Usage: provisionK8sCluster.sh <agent-node-count>"
+    echo "Usage: provisionAgents.sh <agent-node-count>"
     exit 1
 fi
 

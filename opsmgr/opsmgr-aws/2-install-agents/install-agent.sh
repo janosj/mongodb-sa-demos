@@ -1,3 +1,6 @@
+#MMSBASEURL=http://ip-x-x-x-x.ec2.internal:8080
+MMSBASEURL=REPLACE_MMSBASEURL
+
 if [[ $EUID -ne 0 ]]; then
    echo "This script must be run as root"
    exit 1
@@ -16,32 +19,31 @@ sudo yum install -y cyrus-sasl cyrus-sasl-gssapi cyrus-sasl-plain krb5-libs libc
 # Fix (RHEL issue only; VirtualBox had a separate Ubuntu issue):
 sudo yum install -y compat-openssl10
 
-echo Installing binutils, which contains strings for encryption at rest...
+# Contains strings util for demonstrating encryption at rest...
 sudo yum install -y binutils
 
-# Copy this URL from Ops Manager Donwload Agent settings.
-echo Downloading agent...
-curl -OL http://ip-172-31-55-18.ec2.internal:8080/download/agent/automation/mongodb-mms-automation-agent-manager-10.14.17.6445-1.x86_64.rhel7.rpm
+# Ops Manager > Download Agent provides URL for specific agent version.
+# URL for -latest- comes from docs: 
+# https://docs.opsmanager.mongodb.com/current/tutorial/install-mongodb-agent-to-manage/#id100
+# but note the link provided there (currently) is incorrect. JIRA submitted.
+echo "Downloading agent ..."
+curl -OL $MMSBASEURL/download/agent/automation/mongodb-mms-automation-agent-manager-latest.x86_64.rhel7.rpm
 
-# Copy this from Ops Manager Download Agent settings.
 echo Installing agent...
-sudo rpm -U mongodb-mms-automation-agent-manager-10.14.17.6445-1.x86_64.rhel7.rpm
-
-#echo Installing MMS Agent Package...
-#yum install -y $AGENTFILE
+sudo rpm -U mongodb-mms-automation-agent-manager-latest.x86_64.rhel7.rpm
 
 echo Copying config file...
 cp ./automation-agent.config /etc/mongodb-mms/automation-agent.config
 chown mongod:mongod /etc/mongodb-mms/automation-agent.config
 
-# This setup provides a lot of flexibility. You don't have to use it, you can just use /data if you don't overlap components. 
+# This setup provides a lot of flexibility for MongoDB database storage. 
+# You don't have to use it, you can just use /data if you don't overlap components. 
 echo Making data directories...
 mkdir -p /data
 mkdir -p /data/shards
 mkdir -p /data/configRS
 mkdir -p /data/mongos
 mkdir -p /data2
-
 chown -R mongod:mongod /data
 chown -R mongod:mongod /data2
 

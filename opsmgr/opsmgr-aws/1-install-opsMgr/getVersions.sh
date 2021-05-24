@@ -34,6 +34,7 @@ wget -P /opt/mongodb/mms/mongodb-releases https://downloads.mongodb.com/linux/mo
 # Get the URL format from download center.
 # Get the correct version from Ops Manager, when you CONFIRM before deploying (bottom of screen).  
 # Or, see the error message if you try to deploy and it's not there.
+wget -P /opt/mongodb/mms/mongodb-releases https://fastdl.mongodb.org/tools/db/mongodb-database-tools-rhel80-x86_64-100.3.1.tgz
 wget -P /opt/mongodb/mms/mongodb-releases https://fastdl.mongodb.org/tools/db/mongodb-database-tools-rhel80-x86_64-100.2.0.tgz
 wget -P /opt/mongodb/mms/mongodb-releases https://fastdl.mongodb.org/tools/db/mongodb-database-tools-rhel80-x86_64-100.1.0.tgz
 wget -P /opt/mongodb/mms/mongodb-releases https://fastdl.mongodb.org/tools/db/mongodb-database-tools-rhel80-x86_64-100.0.2.tgz
