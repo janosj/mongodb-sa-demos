@@ -6,4 +6,15 @@ then
   exit 1
 fi
 
+# Download the Atlas sample data sets.
+# Instructions here:
+# https://developer.mongodb.com/article/atlas-sample-datasets/#downloading-the-dataset-for-use-on-your-local-machine
+ATLAS_DATASET_FILE=./atlas-sample-datasets.archive
+if [ ! -f "$ATLAS_DATASET_FILE" ]; then
+  echo "Atlas sample datasets file not found locally. Downloading..."
+  curl $OMURL --output $OMFILEPATH
+  curl https://atlas-education.s3.amazonaws.com/sampledata.archive -o $ATLAS_DATASET_FILE
+fi
+
 mongorestore --uri="$MDB_CONNECT" --nsInclude=sample_airbnb.listingsAndReviews --nsInclude=sample_training.grades --nsInclude=sample_mflix.movies --nsInclude=sample_weatherdata.data ./atlas-sample-data-sets/dump
+
