@@ -1,3 +1,6 @@
+# Profiling was redone in Ops Manager 4.4
+# These steps are no longer required.
+
 source ../conf/setEnv.sh
 
 if [ -z "$MDB_CONNECT" ] 

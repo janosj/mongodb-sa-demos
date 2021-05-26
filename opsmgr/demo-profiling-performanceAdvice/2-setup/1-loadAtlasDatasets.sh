@@ -11,10 +11,12 @@ fi
 # https://developer.mongodb.com/article/atlas-sample-datasets/#downloading-the-dataset-for-use-on-your-local-machine
 ATLAS_DATASET_FILE=./atlas-sample-datasets.archive
 if [ ! -f "$ATLAS_DATASET_FILE" ]; then
-  echo "Atlas sample datasets file not found locally. Downloading..."
-  curl $OMURL --output $OMFILEPATH
+  echo "Atlas sample datasets file not found locally. Downloading... "
   curl https://atlas-education.s3.amazonaws.com/sampledata.archive -o $ATLAS_DATASET_FILE
+  echo "Finished downloading."
 fi
 
-mongorestore --uri="$MDB_CONNECT" --nsInclude=sample_airbnb.listingsAndReviews --nsInclude=sample_training.grades --nsInclude=sample_mflix.movies --nsInclude=sample_weatherdata.data ./atlas-sample-data-sets/dump
+echo "Importing data to MongoDB at $MDB_CONNECT ..."
+mongorestore --uri="$MDB_CONNECT" --nsInclude=sample_airbnb.listingsAndReviews --nsInclude=sample_training.grades --nsInclude=sample_mflix.movies --nsInclude=sample_weatherdata.data --archive=$ATLAS_DATASET_FILE
+echo "Done."
 
