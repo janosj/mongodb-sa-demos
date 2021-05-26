@@ -1,4 +1,9 @@
-# Show that the MongoDB data files are stored as cleartext:
+# Show that the MongoDB data files are stored as cleartext 
+# unless you enable encryption-at-rest.
+
+# This assumes you have some data loaded into the database.
+# These sample searches work against the data loaded 
+# as part of the profiling and performance advice demos.
 
 # As sudo:
 ls /data
