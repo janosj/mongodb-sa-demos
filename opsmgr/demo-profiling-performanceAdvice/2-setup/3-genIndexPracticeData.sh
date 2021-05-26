@@ -1,5 +1,4 @@
-# 200k documents ~ 272MB
-source ../conf/setEnv.sh
+source ../conf/demo.conf
 
 if [ -z "$MDB_CONNECT" ]
 then

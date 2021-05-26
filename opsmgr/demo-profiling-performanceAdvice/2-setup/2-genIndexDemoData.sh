@@ -1,5 +1,4 @@
-# 200k documents ~ 272MB
-source ../conf/setEnv.sh
+source ../conf/demo.conf
 
 if [ -z "$MDB_CONNECT" ]
 then
@@ -7,4 +6,5 @@ then
   exit 1
 fi
 
+# 200k documents ~ 272MB
 mgeneratejs CustomerSingleView.json -n 200000 | mongoimport --uri $MDB_CONNECT  --collection customers
