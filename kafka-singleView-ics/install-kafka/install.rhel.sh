@@ -3,17 +3,15 @@
 # Kafka Quickstart instructions:
 # https://kafka.apache.org/quickstart
 
-if [[ $EUID -ne 0 ]]; then
-   echo "This script must be run as root"
-   exit 1
-fi
-
-echo "Install Java (required by ZooKeeper) ..."
-yum install -y java-1.8.0-openjdk-devel
+echo
+echo "Installing Java (required by ZooKeeper) ..."
+sudo yum install -y java-1.8.0-openjdk-devel
 
 # Download Kafka
+echo
 INSTALL_DIR=$HOME
-KFILE=kafka_2.13-2.8.0.tgz
+KAFKA_VER=kafka_2.13-2.8.0
+KFILE=$KAFKA_VER.tgz
 cd $INSTALL_DIR
 if [ ! -f "$KFILE" ]; then
   echo "Kafka not found locally, downloading now ..."
@@ -30,8 +28,8 @@ tar -xzf $KFILE
 # Create a destination folder for the Connector.
 # MongoDB instructions say to use the Kafka plugins directory here: /usr/local/share/kafka/plugins/
 # My previous notes say to create a "plugins" directory in the Kafka directory.
-PLUGINS_DIR=/usr/local/share/kafka/plugins
-mkdir -p $PLUGINS_DIR
+PLUGINS_DIR=$INSTALL_DIR/$KAFKA_VER/plugins
+mkdir $PLUGINS_DIR
 
 # Download MongoDB-Kafka Connector.
 # See here for options: https://docs.mongodb.com/kafka-connector/current/kafka-installation/
@@ -43,6 +41,7 @@ mkdir -p $PLUGINS_DIR
 # Our Kafka installation directions stop here with locating the jar file.
 # For installation, follow the Confluent manual directions:
 # https://docs.confluent.io/home/connect/community.html#manually-installing-community-connectors/
+echo
 CONNECTVER=1.5.0
 CONNECTJAR=mongo-kafka-connect-$CONNECTVER-all.jar
 if [ ! -f "$PLUGINS_DIR/$CONNECTJAR" ]; then
