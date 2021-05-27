@@ -1,7 +1,18 @@
-# Remember: this has to be done while Kafka is up and running
+source demo.conf
 
-../kafka_2.12-2.4.0/bin/kafka-topics.sh --zookeeper localhost:2181 --delete --topic COVID
+if [ ! -d "$KAFKA_HOME" ]; then
+  echo "Kafka not found at $KAFKA_HOME."
+  echo "Check that Kafka is installed and KAFKA_HOME is set in demo.conf."
+  echo "Exiting."
+  exit 1
+fi
 
-echo "To really clean things up, shut down Kafka and ZooKeeper and run the reset_data.sh script."
+cd $KAFKA_HOME
+
+# Remember: Kafka has to be up and running
+bin/kafka-topics.sh --zookeeper localhost:2181 --delete --topic COVID
+cd -
+
+echo "To really clean things up, shut down Kafka and ZooKeeper and run the cleanup.sh script."
 
 
