@@ -3,6 +3,11 @@
 # Kafka Quickstart instructions:
 # https://kafka.apache.org/quickstart
 
+if [[ $EUID -eq 0 ]]; then
+   echo "This script should be run as the demo user, not root."
+   exit 1
+fi
+
 # Set file locations
 KAFKA_VER=kafka_2.13-2.8.0
 KFILE=$KAFKA_VER.tgz
@@ -74,7 +79,6 @@ echo "For example: mongodb+srv://myUser:myPassword@my.cluster.dns/COVID"
 read -p "Enter MongoDB Connect String: " MDB_CONNECT_URI
 URI_ESCAPED2="${MDB_CONNECT_URI////\\/}"
 URI_ESCAPED="${URI_ESCAPED2//@/\\@}"
-echo "New: $URI_ESCAPED"
 sed -i "s/MDB_CONNECT_URI/$URI_ESCAPED/g" $CONFIG_DIR/connect-mongodb-sink.properties
 
 echo "Kafka installation and configuration complete."
