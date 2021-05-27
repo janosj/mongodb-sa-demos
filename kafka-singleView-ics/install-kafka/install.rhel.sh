@@ -70,9 +70,10 @@ delete.topic.enable=true
 EOF
 
 echo "Where to sink? For Atlas, use the Compass connect string."
-echo "For example: mongodb+srv://myUser:myPassword@my.cluster.dns/myDB"
+echo "For example: mongodb+srv://myUser:myPassword@my.cluster.dns/COVID"
 read -p "Enter MongoDB Connect String: " MDB_CONNECT_URI
-sed -i "s/MDB_CONNECT_URI/$MDB_CONNECT_URI/g" $CONFIG_DIR/connect-mongodb-sink.properties
+URI_ESCAPED="${MDB_CONNECT_URI////\/}"
+sed -i "s/MDB_CONNECT_URI/$URI_ESCAPED/g" $CONFIG_DIR/connect-mongodb-sink.properties
 
 echo "Kafka installation and configuration complete."
 
