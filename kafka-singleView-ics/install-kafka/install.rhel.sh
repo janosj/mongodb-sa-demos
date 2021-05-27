@@ -69,5 +69,10 @@ advertised.listeners=PLAINTEXT://localhost:9092
 delete.topic.enable=true
 EOF
 
+echo "Where to sink? For Atlas, use the Compass connect string."
+echo "For example: mongodb+srv://myUser:myPassword@my.cluster.dns/myDB"
+read -p "Enter MongoDB Connect String: " MDB_CONNECT_URI
+sed -i "s/MDB_CONNECT_URI/$MDB_CONNECT_URI/g" $CONFIG_DIR/connect-mongodb-sink.properties
+
 echo "Kafka installation and configuration complete."
 
