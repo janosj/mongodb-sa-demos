@@ -81,5 +81,10 @@ URI_ESCAPED2="${MDB_CONNECT_URI////\\/}"
 URI_ESCAPED="${URI_ESCAPED2//@/\\@}"
 sed -i "s/MDB_CONNECT_URI/$URI_ESCAPED/g" $CONFIG_DIR/connect-mongodb-sink.properties
 
+echo
+echo "RHEL8 comes standard with python3..."
+echo "Installing kafka-python package (required by demo producers/consumers)..."
+sduo pip3 install kafka-python
+
 echo "Kafka installation and configuration complete."
 
