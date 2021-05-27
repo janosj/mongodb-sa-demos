@@ -8,11 +8,13 @@ if [[ $EUID -ne 0 ]]; then
    exit 1
 fi
 
-# ZooKeeper requires Java
+echo "Install Java (required by ZooKeeper) ..."
 yum install -y java-1.8.0-openjdk-devel
 
 # Download Kafka
+INSTALL_DIR=$HOME
 KFILE=kafka_2.13-2.8.0.tgz
+cd $INSTALL_DIR
 if [ ! -f "$KFILE" ]; then
   echo "Kafka not found locally, downloading now ..."
   curl https://downloads.apache.org/kafka/2.8.0/$KFILE --output $KFILE
@@ -49,4 +51,6 @@ if [ ! -f "$PLUGINS_DIR/$CONNECTJAR" ]; then
 else
   echo "Found previously downloaded Connector, using that ..."
 fi
+
+cd -
 
