@@ -99,4 +99,8 @@ echo "Installing kafka-python package (required by demo producers/consumers)..."
 sudo pip3 install kafka-python
 
 echo "Kafka installation and configuration complete."
+echo
+
+echo "Writing connect string to ../3-run-demo/demo.conf..."
+sed -i "s/MDB_CONNECT_URI/$MDB_CONNECT_URI_ESCAPED/g" $CONFIG_DIR/demo.conf
 
