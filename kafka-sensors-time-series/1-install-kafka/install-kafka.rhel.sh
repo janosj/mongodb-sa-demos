@@ -3,10 +3,24 @@
 # Kafka Quickstart instructions:
 # https://kafka.apache.org/quickstart
 
+echo "This script will install Kafka + the MongoDB Kafka Connector"
+echo "and configure the connector to attach to a MongoDB instance as a source."
+echo "The MongoDB source must be a replica set (not a standalone)."
+echo "MongoDB Atlas qualifies."
+echo
+
 if [[ $EUID -eq 0 ]]; then
-   echo "This script should be run as the demo user, not root."
+   echo "This script should be run as the demo user, not root. Exiting."
+   echo
    exit 1
 fi
+
+echo "MongoDB source: Enter your MongoDB connect string:"
+echo "  example (local MDB): mongodb://localhost:27017/admin&replSet=myReplicaSet"
+echo "  example (Atlas): mongodb+srv://myUser:myPassword@my.cluster.dns/ICS"
+read -p "Enter MongoDB Connect String: " MDB_CONNECT_URI
+URI_ESCAPED_PARTIAL="${MDB_CONNECT_URI////\\/}"
+MDB_CONNECT_URI_ESCAPED="${URI_ESCAPED_PARTIAL//@/\\@}"
 
 # Set file locations
 KAFKA_VER=kafka_2.13-2.8.0
@@ -61,8 +75,13 @@ echo "Configuring ..."
 
 # The plugin directory is specified in connect-standalone.properties.
 echo "plugin.path=$PLUGINS_DIR" >> $CONFIG_DIR/connect-standalone.properties
+
 # Copy MongoDB Connector config files to Kafka config directory.
 cp connect-mongodb-* $CONFIG_DIR
+
+# Add the user-supplied MongoDB connect string
+sed -i "s/MDB_CONNECT_URI/$MDB_CONNECT_URI_ESCAPED/g" $CONFIG_DIR/connect-mongodb-source.properties
+
 # Configure binding to avoid "leader not found" errors.
 cat <<EOF >> $CONFIG_DIR/server.properties
 
@@ -73,13 +92,6 @@ advertised.listeners=PLAINTEXT://localhost:9092
 # Added to allow topic deletion
 delete.topic.enable=true
 EOF
-
-echo "Where to sink? For Atlas, supply the entire Compass connect string."
-echo "For example: mongodb+srv://myUser:myPassword@my.cluster.dns/COVID"
-read -p "Enter MongoDB Connect String: " MDB_CONNECT_URI
-URI_ESCAPED2="${MDB_CONNECT_URI////\\/}"
-URI_ESCAPED="${URI_ESCAPED2//@/\\@}"
-sed -i "s/MDB_CONNECT_URI/$URI_ESCAPED/g" $CONFIG_DIR/connect-mongodb-sink.properties
 
 echo
 echo "RHEL8 comes standard with python3..."
