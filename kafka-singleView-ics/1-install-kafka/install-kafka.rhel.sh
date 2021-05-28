@@ -41,7 +41,7 @@ mkdir $PLUGINS_DIR
 # See here for options: https://docs.mongodb.com/kafka-connector/current/kafka-installation/
 # Using Apache Kafka, not Confluent.
 # Most options are zip files that you unzip to the plugins directory.
-# Simply enough, but it's hard to find a download link and you're stuck doing it manually. 
+# Simple enough, but it's hard to find a download link and you're stuck doing it manually. 
 # Sonatype provides a link to an uber jar, which you simply place in the plugins diretory.
 # Follow links for "Uber JAR (Sonatype OSS)".
 # In Nexus, select "1.5.0" (top), "xx-all.jar" (bottom), Artifact tab (right), 
