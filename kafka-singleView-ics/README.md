@@ -9,4 +9,4 @@ Single View demonstrates the utility of the JSON data model when bringing in non
 
 ICS demonstrates the ability to bring in sensor data using Kafka, along with some data modeling techniques that you can apply to time series data. 
 
-Additional documentation for each demo can be found in their respective directories within the "run" folder.
+Additional documentation for each demo can be found in their respective "run" directories.
