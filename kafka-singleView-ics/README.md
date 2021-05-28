@@ -1,6 +1,6 @@
 # Kafka Integration - Single View - Sensors
 
-These demos have Kafka in common, so they have been collocated here to reuse the kafka installation scripts, as well as to provide options if the intent is to demonstrate kafka integration.
+These demos have Kafka in common, so they have been collocated here to reuse the kafka installation script, as well as to provide options if the intent is to demonstrate kafka integration.
 
 * Demo 1: Single View
 * Demo 2: ICS (Integrated Cockpit Sensors)
