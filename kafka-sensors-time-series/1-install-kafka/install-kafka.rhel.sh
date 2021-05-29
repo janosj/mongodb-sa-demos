@@ -19,7 +19,8 @@ echo "MongoDB source: Enter your MongoDB connect string:"
 echo "  example (local MDB): mongodb://localhost:27017/admin&replSet=myReplicaSet"
 echo "  example (Atlas): mongodb+srv://myUser:myPassword@my.cluster.dns/ICS"
 read -p "Enter MongoDB Connect String: " MDB_CONNECT_URI
-URI_ESCAPED_PARTIAL="${MDB_CONNECT_URI////\\/}"
+URI_ESCAPED_PARTIAL2="${MDB_CONNECT_URI//&/\\&}"
+URI_ESCAPED_PARTIAL="${URI_ESCAPED_PARTIAL2////\\/}"
 MDB_CONNECT_URI_ESCAPED="${URI_ESCAPED_PARTIAL//@/\\@}"
 
 # Set file locations
