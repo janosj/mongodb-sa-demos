@@ -1,6 +1,6 @@
 source demo.conf
 
-if [ ! -d "$MDB_CONNECT_URI" ]; then
+if [ -z "$MDB_CONNECT_URI" ]; then
   echo "MongoDB Connect URI not set.."
   echo "Check that MDB_CONNECT_URI is set in demo.conf."
   echo "This is normally set by the install-kafka script."
@@ -8,4 +8,4 @@ if [ ! -d "$MDB_CONNECT_URI" ]; then
   exit 1
 fi
 
-mongo $MDB_CONNECT_URI simHeartRate.js
+mongo $MDB_CONNECT_URI code/simHeartRate.js

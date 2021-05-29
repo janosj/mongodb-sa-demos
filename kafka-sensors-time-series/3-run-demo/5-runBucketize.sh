@@ -8,5 +8,5 @@ if [ -z "$MDB_CONNECT_URI" ]; then
   exit 1
 fi
 
-mongo $MDB_CONNECT_URI code/watchAlerts.js
+mongo $MDB_CONNECT_URI code/bucketize.js
 
