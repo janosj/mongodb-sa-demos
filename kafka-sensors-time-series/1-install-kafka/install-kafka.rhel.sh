@@ -102,5 +102,5 @@ echo "Kafka installation and configuration complete."
 echo
 
 echo "Writing connect string to ../3-run-demo/demo.conf..."
-sed -i "s/MDB_CONNECT_URI/$MDB_CONNECT_URI_ESCAPED/g" $CONFIG_DIR/demo.conf
+sed -i "s/AUTOREPLACE_MDB_CONNECT_URI/$MDB_CONNECT_URI_ESCAPED/g" ../3-run-demo/demo.conf
 
