@@ -16,7 +16,7 @@ cd $KAFKA_HOME
 echo "About to start ZooKeeper in the background..."
 sleep 3
 bin/zookeeper-server-start.sh config/zookeeper.properties &
-sleep 10
+sleep 8
 
 echo "About to start Kafka in the background..."
 sleep 3
@@ -25,7 +25,7 @@ sleep 15
 
 echo "About to start Connect in the background..."
 sleep 3
-bin/connect-standalone.sh config/connect-standalone.properties config/connect-mongodb-sink.properties &
+bin/connect-standalone.sh config/connect-standalone.properties config/connect-mongodb-source.properties &
 sleep 25
 
 cd -
