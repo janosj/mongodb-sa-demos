@@ -76,11 +76,11 @@ fi
 # (when starting Kafka Connect) with an avro class not found error.
 # Using Sonatype, dependencies can be determined by looking at the 
 # kafka connect pom file within the Nexus repository Manager.
-# To find this jars at runtime, add the directory to your CLASSPATH
+# The location of these dependencies have to be in your CLASSPATH
+# when you start Kafka Connect.
 AVRO=avro-1.9.2
 echo "Installing dependencies..."
 curl http://archive.apache.org/dist/avro/$AVRO/java/$AVRO.jar --output $PLUGINS_DIR/$AVRO.jar
-export CLASSPATH=~/kafka_2.13-2.8.0/plugins/*;$CLASSPATH
 
 echo
 echo "Configuring ..."
