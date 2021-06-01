@@ -57,7 +57,7 @@ mkdir $PLUGINS_DIR
 # Using Apache Kafka, not Confluent.
 # Most options are zip files that you unzip to the plugins directory.
 # Simple enough, but it's hard to find a download link and you're stuck doing it manually. 
-# Sonatype provides a link to an uber jar, which you simply place in the plugins diretory.
+# Sonatype provides a link to an uber jar, which you simply place in the plugins directory.
 # Follow links for "Uber JAR (Sonatype OSS)".
 # In Nexus, select "1.5.0" (top), "xx-all.jar" (bottom), Artifact tab (right), 
 # then right-click "Repository Path" for download url.
@@ -70,6 +70,15 @@ if [ ! -f "$PLUGINS_DIR/$CONNECTJAR" ]; then
 else
   echo "Found previously downloaded Connector, using that ..."
 fi
+
+# The uber jar does not include all required non-MongoDB dependencies.
+# For example, attempts to use MDB as a source will fail 
+# (when starting Kafka Connect) with an avro class not found error.
+# Using Sonatype, dependencies can be determined by looking at the 
+# kafka connect pom file within the Nexus repository Manager.
+AVRO_DEP=avro-1.9.2.jar
+echo "Installing dependencies..."
+curl http://archive.apache.org/dist/avro/avro-1.9.2/java/avro-1.9.2.jar --output $PLUGINS_DIR/$AVRO_DEP
 
 echo
 echo "Configuring ..."
