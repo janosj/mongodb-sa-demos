@@ -35,6 +35,16 @@ echo
 echo "Installing Java (required by ZooKeeper) ..."
 sudo yum install -y java-1.8.0-openjdk-devel
 
+if [ -f "/etc/redhat-release" ]; then
+  OSTYPE=rhel
+  sudo yum install -y java-1.8.0-openjdk-devel
+else
+  OSTYPE=ubuntu
+  sudo apt-get install openjdk-8-jdk
+fi
+echo
+echo "(Set OS type to $OSTYPE)."
+
 # Download Kafka
 echo
 cd $INSTALL_DIR
