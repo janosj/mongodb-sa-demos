@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Kafka Quickstart instructions:
+# Kafka Quickstart instructions (steps 1 and 2):
 # https://kafka.apache.org/quickstart
 
 if [[ $EUID -eq 0 ]]; then
@@ -16,9 +16,21 @@ KAFKA_HOME=$HOME/$KAFKA_VER
 PLUGINS_DIR=$KAFKA_HOME/plugins
 CONFIG_DIR=$KAFKA_HOME/config
 
+OSTYPE=rhel
+if [ ! -f "/etc/redhat-release" ]; then
+  OSTYPE=ubuntu
+fi
+echo
+echo "Setting OS type to $OSTYPE."
+
 echo
 echo "Installing Java (required by ZooKeeper) ..."
-sudo yum install -y java-1.8.0-openjdk-devel
+JAVA_VER=java-1.8.0-openjdk-devel
+if [ "$OSTYPE" = "rhel" ]; then
+  sudo yum install -y $JAVA_VER
+else
+  sudo apt install $JAVA_VER
+fi
 
 # Download Kafka
 echo
@@ -55,6 +67,17 @@ if [ ! -f "$PLUGINS_DIR/$CONNECTJAR" ]; then
 else
   echo "Found previously downloaded Connector, using that ..."
 fi
+
+# The uber jar does not include all required non-MongoDB dependencies.
+# For example, attempts to use MDB as a source will fail
+# (when starting Kafka Connect) with an avro class not found error.
+# Using Sonatype, dependencies can be determined by looking at the
+# kafka connect pom file within the Nexus repository Manager.
+# The location of these dependencies have to be in your CLASSPATH
+# when you start Kafka Connect.
+AVRO=avro-1.9.2
+echo "Installing dependencies..."
+curl http://archive.apache.org/dist/avro/$AVRO/java/$AVRO.jar --output $PLUGINS_DIR/$AVRO.jar
 
 echo
 echo "Configuring ..."

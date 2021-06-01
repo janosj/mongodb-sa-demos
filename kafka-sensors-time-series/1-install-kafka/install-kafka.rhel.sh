@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Kafka Quickstart instructions:
+# Kafka Quickstart instructions (steps 1 and 2):
 # https://kafka.apache.org/quickstart
 
 echo "This script will install Kafka + the MongoDB Kafka Connector"
