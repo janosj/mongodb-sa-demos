@@ -16,21 +16,18 @@ KAFKA_HOME=$HOME/$KAFKA_VER
 PLUGINS_DIR=$KAFKA_HOME/plugins
 CONFIG_DIR=$KAFKA_HOME/config
 
-OSTYPE=rhel
-if [ ! -f "/etc/redhat-release" ]; then
-  OSTYPE=ubuntu
-fi
-echo
-echo "Setting OS type to $OSTYPE."
-
 echo
 echo "Installing Java (required by ZooKeeper) ..."
-JAVA_VER=java-1.8.0-openjdk-devel
-if [ "$OSTYPE" = "rhel" ]; then
-  sudo yum install -y $JAVA_VER
+
+if [ -f "/etc/redhat-release" ]; then
+  OSTYPE=rhel
+  sudo yum install -y java-1.8.0-openjdk-devel
 else
-  sudo apt install $JAVA_VER
+  OSTYPE=ubuntu
+  sudo apt-get install openjdk-8-jdk
 fi
+echo
+echo "(Set OS type to $OSTYPE)."
 
 # Download Kafka
 echo
