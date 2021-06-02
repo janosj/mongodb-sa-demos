@@ -107,7 +107,8 @@ echo "plugin.path=$PLUGINS_DIR" >> $CONFIG_DIR/connect-standalone.properties
 cp connect-mongodb-* $CONFIG_DIR
 
 # Add the user-supplied MongoDB connect string
-sed -i "s/MDB_CONNECT_URI/$MDB_CONNECT_URI_ESCAPED/g" $CONFIG_DIR/connect-mongodb-source.properties
+# Use ',' as separator to correctly parse URLs without complex escape sequences.
+sed -i "s,MDB_CONNECT_URI,$MDB_CONNECT_URI,g" $CONFIG_DIR/connect-mongodb-source.properties
 
 # Configure binding to avoid "leader not found" errors.
 cat <<EOF >> $CONFIG_DIR/server.properties
