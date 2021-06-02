@@ -58,8 +58,6 @@ else
 fi
 tar -C $INSTALL_DIR -xzf $DOWNLOADS_DIR/$KFILE
 
-exit 1
-
 # Create a destination folder for the Connector.
 # MongoDB instructions say to use the Kafka plugins directory here: /usr/local/share/kafka/plugins/
 # My previous notes say to create a "plugins" directory in the Kafka directory.
@@ -77,12 +75,13 @@ mkdir $PLUGINS_DIR
 echo
 CONNECTVER=1.5.0
 CONNECTJAR=mongo-kafka-connect-$CONNECTVER-all.jar
-if [ ! -f "$PLUGINS_DIR/$CONNECTJAR" ]; then
+if [ ! -f "$DOWNLOADS_DIR/$CONNECTJAR" ]; then
   echo "Connector not found locally, downloading now ..."
-  curl https://oss.sonatype.org/service/local/repositories/releases/content/org/mongodb/kafka/mongo-kafka-connect/$CONNECTVER/$CONNECTJAR --output $PLUGINS_DIR/$CONNECTJAR
+  curl https://oss.sonatype.org/service/local/repositories/releases/content/org/mongodb/kafka/mongo-kafka-connect/$CONNECTVER/$CONNECTJAR --output $DOWNLOADS_DIR/$CONNECTJAR
 else
   echo "Found previously downloaded Connector, using that ..."
 fi
+cp $DOWNLOADS_DIR/$CONNECTJAR $PLUGINS_DIR
 
 # The uber jar does not include all required non-MongoDB dependencies.
 # For example, attempts to use MDB as a source will fail 
@@ -93,7 +92,13 @@ fi
 # when you start Kafka Connect.
 AVRO=avro-1.9.2
 echo "Installing dependencies..."
-curl http://archive.apache.org/dist/avro/$AVRO/java/$AVRO.jar --output $PLUGINS_DIR/$AVRO.jar
+if [ ! -f "$DOWNLOADS_DIR/$AVRO.jar" ]; then
+  echo "  Avro jar not found locally, downloading now ..."
+  curl http://archive.apache.org/dist/avro/$AVRO/java/$AVRO.jar --output $DOWNLOADS_DIR/$AVRO.jar
+else
+  echo "  Found previously downloaded Avro jar, using that ..."
+fi
+cp $DOWNLOADS_DIR/$AVRO.jar $PLUGINS_DIR
 
 echo
 echo "Configuring ..."
