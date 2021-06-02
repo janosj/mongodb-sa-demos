@@ -46,17 +46,17 @@ else
   sudo apt-get install openjdk-8-jdk
 fi
 echo
-echo "OS type set to $OSTYPE)."
+echo "OS type set to $OSTYPE."
 
 # Download Kafka
 echo
 if [ ! -f "$DOWNLOADS_DIR/$KFILE" ]; then
   echo "Kafka not found locally, downloading now ..."
-  curl https://downloads.apache.org/kafka/2.8.0/$KFILE --output $DOWNLOADS/$KFILE
+  curl https://downloads.apache.org/kafka/2.8.0/$KFILE --output $DOWNLOADS_DIR/$KFILE
 else
   echo "Found previously downloaded Kafka, using that ..."
 fi
-tar -C $INSTALL_DIR -xzf $DOWNLOADS/$KFILE
+tar -C $INSTALL_DIR -xzf $DOWNLOADS_DIR/$KFILE
 
 exit 1
 
