@@ -142,4 +142,5 @@ echo "The MongoDB Kafka Connector was installed to $PLUGINS_DIR."
 echo
 echo "Run the 3 Kafka components (ZK, Kafka, Connect) and then run your demo."
 echo "Good luck!"
+echo
 
