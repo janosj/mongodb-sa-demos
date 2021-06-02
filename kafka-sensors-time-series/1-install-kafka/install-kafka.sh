@@ -136,5 +136,9 @@ sed -i "s/AUTOREPLACE_MDB_CONNECT_URI/$MDB_CONNECT_URI_ESCAPED/g" ../3-run-demo/
 
 echo 
 echo "Installation complete."
+echo "Required software was downloaded to $DOWNLOADS_DIR"
+echo "and Kafka was installed to $KAFKA_HOME."
+echo "The MongoDB Kafka Connector was installed to $PLUGINS_DIR."
+echo
 echo "Run the 3 Kafka components and then run your demo. Good luck!"
 
