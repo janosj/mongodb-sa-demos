@@ -134,3 +134,7 @@ echo
 echo "Writing connect string to ../3-run-demo/demo.conf..."
 sed -i "s/AUTOREPLACE_MDB_CONNECT_URI/$MDB_CONNECT_URI_ESCAPED/g" ../3-run-demo/demo.conf
 
+echo 
+echo "Installation complete."
+echo "Run the 3 Kafka components and then run your demo. Good luck!"
+
