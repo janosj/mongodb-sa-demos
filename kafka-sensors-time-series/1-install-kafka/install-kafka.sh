@@ -18,7 +18,9 @@ fi
 echo "MongoDB source: Enter your MongoDB connect string:"
 echo "  example (local MDB): mongodb://localhost:27017/admin&replSet=myReplicaSet"
 echo "  example (Atlas): mongodb+srv://myUser:myPassword@my.cluster.dns/ICS"
-read -p "Enter MongoDB Connect String: " MDB_CONNECT_URI
+read -p "Enter MongoDB Connect String: " MDB_CONNECT_URI_RAW
+# Encode any ampersands
+MDB_CONNECT_URI=${MDB_CONNECT_URI_RAW/&/\\&}
 
 # Set file locations
 KAFKA_VER=kafka_2.13-2.8.0
