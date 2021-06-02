@@ -19,9 +19,6 @@ echo "MongoDB source: Enter your MongoDB connect string:"
 echo "  example (local MDB): mongodb://localhost:27017/admin&replSet=myReplicaSet"
 echo "  example (Atlas): mongodb+srv://myUser:myPassword@my.cluster.dns/ICS"
 read -p "Enter MongoDB Connect String: " MDB_CONNECT_URI
-URI_ESCAPED_PARTIAL2="${MDB_CONNECT_URI//&/\\&}"
-URI_ESCAPED_PARTIAL="${URI_ESCAPED_PARTIAL2////\\/}"
-MDB_CONNECT_URI_ESCAPED="${URI_ESCAPED_PARTIAL//@/\\@}"
 
 # Set file locations
 KAFKA_VER=kafka_2.13-2.8.0
@@ -132,8 +129,9 @@ echo "Kafka installation and configuration complete."
 echo
 
 echo "Writing Kafka Home and MDB connect string to ../3-run-demo/demo.conf..."
-sed -i "s/AUTOREPLACE_MDB_CONNECT_URI/$MDB_CONNECT_URI_ESCAPED/g" ../3-run-demo/demo.conf
-sed -i "s/AUTOREPLACE_KAFKA_HOME/$KAFKA_HOME/g" ../3-run-demo/demo.conf
+# Use ',' as separator to correctly parse URLs without complex escape sequences.
+sed -i "s,AUTOREPLACE_MDB_CONNECT_URI,$MDB_CONNECT_URI,g" ../3-run-demo/demo.conf
+sed -i "s,AUTOREPLACE_KAFKA_HOME,$KAFKA_HOME,g" ../3-run-demo/demo.conf
 
 echo 
 echo "Installation complete."
