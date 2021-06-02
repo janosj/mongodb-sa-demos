@@ -1,6 +1,6 @@
 # Runs scripts 1, 2, and 3 (ZK, Kafka, and Connect), all in the background.
-# Strictly a convenience script, it reduces number of pre-meetings steps to just 1.
-# Once everything is running, just run start_data_feed.
+# Strictly a convenience script, it reduces the number of prep steps to just 1.
+# Once everything is running, run start_data_feed.
 
 source demo.conf
 

@@ -1,3 +1,4 @@
+set -a
 source demo.conf
 
 if [ ! -d "$KAFKA_HOME" ]; then
