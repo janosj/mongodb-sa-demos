@@ -1,3 +1,6 @@
+# Setting allexport causes all variables defined in demo.conf
+# to be exported, and thus accessible to subshells.
+# Specifically, connect-standalone.sh requires the CLASSPATH.
 set -a
 source demo.conf
 

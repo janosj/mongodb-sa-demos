@@ -2,6 +2,10 @@
 # Strictly a convenience script, it reduces the number of prep steps to just 1.
 # Once everything is running, run start_data_feed.
 
+# Setting allexport causes all variables defined in demo.conf
+# to be exported, and thus accessible to subshells.
+# Specifically, connect-standalone.sh requires the CLASSPATH.
+set -a
 source demo.conf
 
 if [ ! -d "$KAFKA_HOME" ]; then
