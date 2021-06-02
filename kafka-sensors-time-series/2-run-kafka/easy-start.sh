@@ -43,11 +43,11 @@ cat <<EOF > easy-stop.sh
 echo "Stopping Kafka Connect..."
 sleep 3
 kill $CONNECT_PID
-sleep 5
+sleep 6
 echo "Stopping Kafka..."
 sleep 3
 kill $KAFKA_PID
-sleep 5
+sleep 8
 echo "Stopping ZooKeeper..."
 sleep 3
 kill $ZK_PID
