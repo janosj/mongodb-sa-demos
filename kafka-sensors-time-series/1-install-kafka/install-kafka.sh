@@ -46,7 +46,7 @@ else
   sudo apt-get install openjdk-8-jdk
 fi
 echo
-echo "OS type set to $OSTYPE."
+echo "OS type is $OSTYPE."
 
 # Download Kafka
 echo
