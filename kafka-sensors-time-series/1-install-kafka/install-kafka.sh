@@ -26,10 +26,13 @@ MDB_CONNECT_URI_ESCAPED="${URI_ESCAPED_PARTIAL//@/\\@}"
 # Set file locations
 KAFKA_VER=kafka_2.13-2.8.0
 KFILE=$KAFKA_VER.tgz
+DOWNLOADS_DIR=$HOME/downloads
 INSTALL_DIR=$HOME
 KAFKA_HOME=$HOME/$KAFKA_VER
 PLUGINS_DIR=$KAFKA_HOME/plugins
 CONFIG_DIR=$KAFKA_HOME/config
+
+mkdir -p $DOWNLOADS_DIR
 
 echo
 echo "Installing Java (required by ZooKeeper) ..."
@@ -47,15 +50,15 @@ echo "OS type set to $OSTYPE)."
 
 # Download Kafka
 echo
-cd $INSTALL_DIR
-if [ ! -f "$KFILE" ]; then
+if [ ! -f "$DOWNLOADS_DIR/$KFILE" ]; then
   echo "Kafka not found locally, downloading now ..."
-  curl https://downloads.apache.org/kafka/2.8.0/$KFILE --output $KFILE
+  curl https://downloads.apache.org/kafka/2.8.0/$KFILE --output $DOWNLOADS/$KFILE
 else
   echo "Found previously downloaded Kafka, using that ..."
 fi
-tar -xzf $KFILE
-cd -
+tar -C $INSTALL_DIR -xzf $DOWNLOADS/$KFILE
+
+exit 1
 
 # Create a destination folder for the Connector.
 # MongoDB instructions say to use the Kafka plugins directory here: /usr/local/share/kafka/plugins/
