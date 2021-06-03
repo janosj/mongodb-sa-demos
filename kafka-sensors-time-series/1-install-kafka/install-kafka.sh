@@ -35,7 +35,6 @@ mkdir -p $DOWNLOADS_DIR
 
 echo
 echo "Installing Java (required by ZooKeeper) ..."
-sudo yum install -y java-1.8.0-openjdk-devel
 
 if [ -f "/etc/redhat-release" ]; then
   OSTYPE=rhel
