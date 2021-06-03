@@ -31,7 +31,7 @@ sleep 15
 
 echo "About to start Connect in the background..."
 sleep 3
-bin/connect-standalone.sh config/connect-standalone.properties config/connect-mongodb-source.properties &
+bin/connect-standalone.sh config/connect-standalone.properties config/connect-mongodb-sink.properties &
 CONNECT_PID=$!
 sleep 25
 
