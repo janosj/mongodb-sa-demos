@@ -21,6 +21,7 @@ RUN set -x \
         numactl \
         psmisc \
         rsyslog \
+        binutils \
     && sed -i 's/module(load="imklog"/# module(load="imklog"/' /etc/rsyslog.conf \
     && curl -OL http://172.17.0.1:8080/download/agent/automation/mongodb-mms-automation-agent-manager_latest_amd64.ubuntu1604.deb \
     && dpkg -i mongodb-mms-automation-agent-manager_latest_amd64.ubuntu1604.deb \
