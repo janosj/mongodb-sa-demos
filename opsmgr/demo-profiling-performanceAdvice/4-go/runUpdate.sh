@@ -7,7 +7,6 @@ then
 fi
 
 echo "Env MDB_CONNECT set to $MDB_CONNECT"
-exit 1
 
 mongo --retryWrites $MDB_CONNECT functions/updateInsInfo.js
 

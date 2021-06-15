@@ -9,7 +9,7 @@ fi
 # Download the Atlas sample data sets.
 # Instructions here:
 # https://developer.mongodb.com/article/atlas-sample-datasets/#downloading-the-dataset-for-use-on-your-local-machine
-ATLAS_DATASET_FILE=./atlas-sample-datasets.archive
+ATLAS_DATASET_FILE=$HOME/downloads/atlas-sample-datasets.archive
 if [ ! -f "$ATLAS_DATASET_FILE" ]; then
   echo "Atlas sample datasets file not found locally. Downloading... "
   curl https://atlas-education.s3.amazonaws.com/sampledata.archive -o $ATLAS_DATASET_FILE
