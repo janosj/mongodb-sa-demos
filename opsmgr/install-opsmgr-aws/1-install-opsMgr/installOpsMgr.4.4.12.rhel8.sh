@@ -102,4 +102,10 @@ echo
 echo "Ops Manager installation complete."
 echo "Access UI at http://$PUBLIC_HOSTNAME:8080"
 echo "and create the initial user (i.e. register for new account)."
+echo "Required setting are already configured."
+echo "Navigate to Deployment > Agents > Downloads & Settings."
+echo "Select your operating system."
+echo "Use the information from this page when you run transfer-agent-config-files.sh"
+echo "Then ssh to each agent box to install the agents."
+echo "You're ready to demo! Good luck!"
 
