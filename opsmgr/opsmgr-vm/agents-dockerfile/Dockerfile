@@ -23,7 +23,9 @@ RUN set -x \
         rsyslog \
         binutils \
     && sed -i 's/module(load="imklog"/# module(load="imklog"/' /etc/rsyslog.conf \
-    && curl -OL http://172.17.0.1:8080/download/agent/automation/mongodb-mms-automation-agent-manager_latest_amd64.ubuntu1604.deb \
+    # modified for SSL
+    # -k option is a hack to allow self-signed certificate
+    && curl -kOL https://172.17.0.1:8443/download/agent/automation/mongodb-mms-automation-agent-manager_latest_amd64.ubuntu1604.deb \
     && dpkg -i mongodb-mms-automation-agent-manager_latest_amd64.ubuntu1604.deb \
     && rm -rf mongodb-mms-automation-agent-manager_latest_amd64.ubuntu1604.deb \
     && apt-get autoremove \
@@ -31,6 +33,9 @@ RUN set -x \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
     && service rsyslog start
+
+# Required to allow self-signed certificate.
+COPY opsmgrCA.pem /etc/mongodb-mms
 
 # Two main volumes to be mounted to external volumes: 
 #  1) Place for all mongodb cluster configuration & data files
