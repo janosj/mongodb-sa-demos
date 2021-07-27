@@ -23,4 +23,11 @@ sudo cp -p opsmgrCA.pem /etc/mongodb-mms
 # so they can connect to Ops Manager over SSL.
 sudo cp -p opsmgrCA.pem agents-dockerfile
 
+echo "Next steps:"
+echo " - Go into the Ops Manager config pages and set the URL and PEM Key File"
+echo " - Restart Ops Manager"
+echo " - Ensure port 8443 is open"
+echo " - Take steps for browser to recognize self-signed cert"
+echo " - Modify agents to connect over SSL"
+
 
