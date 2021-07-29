@@ -12,7 +12,7 @@
 # Note: subjectAltName (SAN) is required by Chrome
 # If this generates an error (can't load /home/opsmgr/.rnd into RNG),
 # the fix is to comment RANDFILE line in /etc/ssl/openssl.cnf
-openssl req -newkey rsa:2048 -nodes -keyout opsmgrCA.key -x509 -subj "/CN=opsmgr" -addext "subjectAltName = DNS:opsmgr" -days 365 -extensions v3_ca -out opsmgrCA.crt
+openssl req -newkey rsa:2048 -nodes -keyout opsmgrCA.key -x509 -subj "/CN=opsmgr" -addext "subjectAltName = DNS:opsmgr" -days 3650 -extensions v3_ca -out opsmgrCA.crt
 
 cat opsmgrCA.crt opsmgrCA.key > opsmgrCA.pem
 sudo chown mongodb-mms:mongodb-mms opsmgrCA.pem
@@ -29,5 +29,4 @@ echo " - Restart Ops Manager"
 echo " - Ensure port 8443 is open"
 echo " - Take steps for browser to recognize self-signed cert"
 echo " - Modify agents to connect over SSL"
-
 
