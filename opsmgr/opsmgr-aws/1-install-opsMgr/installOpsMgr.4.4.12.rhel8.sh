@@ -11,6 +11,10 @@ OMFILE=mongodb-mms-4.4.12.100.20210503T1412Z-1.x86_64.rpm
 OMFILEPATH=./$OMFILE
 OMURL=https://downloads.mongodb.com/on-prem-mms/rpm/$OMFILE
 
+echo "Setting hostname to 'opsmgr-aws'..."
+# Prereq: use opsmgr-aws as internal and external hostname.
+# This will be specified in the server's self-signed SSL certificate.
+hostnamectl set-hostname opsmgr-aws
 
 # Step 1: Ensure ulimit settings meet minimum requirements.
 # Ops Manager fails if these aren't in place, especially once you enable backups.
@@ -74,6 +78,22 @@ echo
 echo Copying config file with local mode settings...
 cp /opt/mongodb/mms/conf/conf-mms.properties /opt/mongodb/mms/conf/conf-mms.properties.original
 sed "s/INTERNAL_HOSTNAME/$HOSTNAME/g" conf-mms.properties > /opt/mongodb/mms/conf/conf-mms.properties
+
+echo 
+echo "Configuring SSL..."
+# Create self-signed cert
+# Note: subjectAltName (SAN) is required by Chrome browsers
+# If this generates an error (can't load /home/opsmgr/.rnd into RNG),
+# the fix is to comment RANDFILE line in /etc/ssl/openssl.cnf
+openssl req -newkey rsa:2048 -nodes -keyout opsmgrCA.key -x509 -subj "/CN=opsmgr-aws" -addext "subjectAltName = DNS:opsmgr-aws" -days 365 -extensions v3_ca -out opsmgrCA.crt
+cat opsmgrCA.crt opsmgrCA.key > opsmgrCA.pem
+sudo chown mongodb-mms:mongodb-mms opsmgrCA.pem
+sudo chmod 600 opsmgrCA.pem
+sudo cp -p opsmgrCA.pem /etc/mongodb-mms
+# self-signed cert will have to be copied to laptop and agents
+sudo cp opsmgrCA.pem ~
+sudo chmod 777 ~/opsmgrCA.pem
+
 
 echo
 echo "Downloading MongoDB versions (custom step)..."
