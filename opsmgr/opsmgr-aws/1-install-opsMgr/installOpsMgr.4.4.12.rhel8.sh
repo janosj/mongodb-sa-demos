@@ -116,11 +116,11 @@ sudo chown mongodb-mms:mongodb-mms /data/headdb
 //sudo chown mongodb-mms:mongodb-mms /data/filestore
 
 # Trick to get the public DNS of this server
-PUBLIC_HOSTNAME="$(curl http://169.254.169.254/latest/meta-data/public-hostname 2>/dev/null)"
+# PUBLIC_HOSTNAME="$(curl http://169.254.169.254/latest/meta-data/public-hostname 2>/dev/null)"
 
 echo 
 echo "Ops Manager installation complete."
-echo "Access UI at http://$PUBLIC_HOSTNAME:8080"
+echo "Access UI at https://opsmgr-aws:8443 (assuming it's in /etc/hosts)"
 echo "and create the initial user (i.e. register for new account)."
 echo "Required setting are already configured."
 echo "Navigate to Deployment > Agents > Downloads & Settings."
