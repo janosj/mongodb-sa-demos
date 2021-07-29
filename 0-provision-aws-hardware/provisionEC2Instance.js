@@ -171,8 +171,8 @@ instancePromise.then(
                   clearTimeout(myInt);
 
                   // Update /etc/hosts with the connect info.
-                  var hostFileUtil = require("./updateKnownHostsFile");
-                  hostFileUtil.updateKnownHostsFile(etcHostname, publicIpAddress, privateDnsName);
+                  var hostFileUtil = require("./updateLocalHostsFile");
+                  hostFileUtil.updateLocalHostsFile(etcHostname, publicIpAddress, privateDnsName);
                   
                 } else {
                   console.log(" Still no public IP address or DNS name. Will try again in 5 seconds.");

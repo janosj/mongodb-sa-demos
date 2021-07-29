@@ -1,6 +1,6 @@
 // Reads in an entire file, replaces any lines with a match, writes new output file. 
 // Runs synchronously. 
-exports.updateKnownHostsFile = function (hostname, publicIpAddress, privateDnsName) {
+exports.updateLocalHostsFile = function (hostname, publicIpAddress, privateDnsName) {
 
   const os = require('os');
   const homeDir = os.homedir();
