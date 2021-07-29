@@ -7,4 +7,4 @@ then
 fi
 
 # 200k documents ~ 272MB
-mgeneratejs CustomerSingleView.json -n 200000 | mongoimport --uri $MDB_CONNECT  --collection customers
+mgeneratejs CustomerSingleView.json -n 150000 | mongoimport --uri $MDB_CONNECT  --collection customers
