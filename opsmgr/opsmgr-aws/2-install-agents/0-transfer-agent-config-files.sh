@@ -33,6 +33,9 @@ sed "s/REPLACE_MMSBASEURL/$MMSBASEURL_ESCAPE/g" automation-agent.config.2.tmp > 
 sed "s/REPLACE_MMSBASEURL/$MMSBASEURL_ESCAPE/g" install-agent.sh > install-agent.sh.tmp
 chmod +x install-agent.sh.tmp
 
+echo "Pulling cert from opsmgr-aws..."
+scp -i $HOME/Keys/$KEYFILE.pem ec2-user@opsmgr-aws:./opsmgrCA.pem . 
+
 # Transfer the completed files to all agents.
 i="0"
 while [ $i -lt $1 ]; do
@@ -43,6 +46,7 @@ while [ $i -lt $1 ]; do
 
   scp -i $HOME/Keys/$KEYFILE.pem ./automation-agent.config.3.tmp ec2-user@agent$i:./automation-agent.config
   scp -i $HOME/Keys/$KEYFILE.pem ./install-agent.sh.tmp ec2-user@agent$i:./install-agent.sh
+  scp -i $HOME/Keys/$KEYFILE.pem ./opsmgrCA.pem ec2-user@agent$i:.
 
 done
 
@@ -52,4 +56,7 @@ rm *.tmp
 echo 
 echo Done.
 echo
+echo "Server cert is in local directory."
+echo "Import it via Keychain Access (Mac utility, drag and drop into login section)"
+echo "Double-click on it, switch Trust to 'Always Trust'"
 
