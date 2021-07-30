@@ -16,6 +16,14 @@ if [ -z "$1" ]; then
     exit 1
 fi
 
+# Check for Ops Mgr server cert (required by agent for SSL access)
+if [ ! -f ~/Downloads/opsmgrCA.pem ]; then
+  echo "Could not find opsmgrCA.pem file in ~/Downloads."
+  echo "(Did you run ../1-install-opsMgr/2-get-server-cert.sh?)"
+  echo "Exiting - agents can't connect without that cert."
+  exit 1
+fi
+
 # Your AWS key is required to access the instances.
 read -p "Name of AWS keyfile (no extension): " KEYFILE
 read -p "Ops Manager Internal IP: " MMSINTERNALIP

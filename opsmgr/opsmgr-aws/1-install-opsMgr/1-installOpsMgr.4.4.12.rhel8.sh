@@ -16,6 +16,10 @@ echo "Setting hostname to 'opsmgr-aws'..."
 # This will be specified in the server's self-signed SSL certificate.
 hostnamectl set-hostname opsmgr-aws
 
+echo "Setting timezone to US East Coast..."
+timedatectl set-timezone America/New_York
+
+
 # Step 1: Ensure ulimit settings meet minimum requirements.
 # Ops Manager fails if these aren't in place, especially once you enable backups.
 echo Increasing system limits for mongod user...

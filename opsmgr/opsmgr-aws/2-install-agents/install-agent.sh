@@ -10,6 +10,9 @@ fi
 echo "Adding opsmgr-aws to /etc/hosts..."
 echo "$MMSINTERNALIP opsmgr-aws" >> /etc/hosts
 
+echo "Setting timezone to US East Coast..."
+timedatectl set-timezone America/New_York
+
 # Added compat-openssl10 because I get an openssl error
 # trying to run mongosqld (the BI Connector) on CentOS 8
 echo Installing OS dependencies...
