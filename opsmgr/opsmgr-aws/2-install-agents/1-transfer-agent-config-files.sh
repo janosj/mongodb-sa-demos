@@ -24,11 +24,14 @@ if [ ! -f ~/Downloads/opsmgrCA.pem ]; then
   exit 1
 fi
 
-# Your AWS key is required to access the instances.
-read -p "Name of AWS keyfile (no extension): " KEYFILE
-read -p "Ops Manager Internal IP: " MMSINTERNALIP
+read -p "Name of AWS keyfile to connect to EC2 instances (no extension): " KEYFILE
+
+read -p "Ops Manager Internal IP (for agents to connect): " MMSINTERNALIP
+
+echo "Get this next two from Ops Manager > Agents > Downloads & Settings..."
 read -p "mmsGroupId: " MMSGROUPID
 read -p "mmsApiKey: " MMSAPIKEY
+
 #read -p "mmsBaseUrl (including protocol and port): " MMSBASEURL
 MMSBASEURL=https://opsmgr-aws:8443
 
