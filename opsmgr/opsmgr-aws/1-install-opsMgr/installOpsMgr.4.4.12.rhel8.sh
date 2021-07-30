@@ -91,8 +91,8 @@ sudo chown mongodb-mms:mongodb-mms opsmgrCA.pem
 sudo chmod 600 opsmgrCA.pem
 sudo cp -p opsmgrCA.pem /etc/mongodb-mms
 # self-signed cert will have to be copied to laptop and agents
-sudo cp opsmgrCA.pem ~
-sudo chmod 777 ~/opsmgrCA.pem
+sudo cp opsmgrCA.pem ~ec2-user
+sudo chmod 777 ~ec2-user/opsmgrCA.pem
 
 
 echo
@@ -112,20 +112,21 @@ echo Creating HeadDB and File System Store directories...
 mkdir /data/headdb
 sudo chown mongodb-mms:mongodb-mms /data/headdb
 
-//mkdir /data/filestore
-//sudo chown mongodb-mms:mongodb-mms /data/filestore
+#mkdir /data/filestore
+#sudo chown mongodb-mms:mongodb-mms /data/filestore
 
 # Trick to get the public DNS of this server
 # PUBLIC_HOSTNAME="$(curl http://169.254.169.254/latest/meta-data/public-hostname 2>/dev/null)"
 
 echo 
 echo "Ops Manager installation complete."
-echo "Access UI at https://opsmgr-aws:8443 (assuming it's in /etc/hosts)"
+echo "Access UI at https://opsmgr-aws:8443 (assuming it's in your /etc/hosts)"
 echo "and create the initial user (i.e. register for new account)."
-echo "Required setting are already configured."
+echo "Required settings are already configured."
 echo "Navigate to Deployment > Agents > Downloads & Settings."
 echo "Select your operating system."
 echo "Use the information from this page when you run transfer-agent-config-files.sh"
+echo "That script also pulls down the server cert (for local use) and pushes it to the agents."
 echo "Then ssh to each agent box to install the agents."
 echo "You're ready to demo! Good luck!"
 

@@ -18,23 +18,25 @@ fi
 
 # Your AWS key is required to access the instances.
 read -p "Name of AWS keyfile (no extension): " KEYFILE
-
+read -p "Ops Manager Internal IP: " MMSINTERNALIP
 read -p "mmsGroupId: " MMSGROUPID
 read -p "mmsApiKey: " MMSAPIKEY
-read -p "mmsBaseUrl (including protocol and port): " MMSBASEURL
+#read -p "mmsBaseUrl (including protocol and port): " MMSBASEURL
+MMSBASEURL=https://opsmgr-aws:8443
+
 
 # Replace "/" with "\/" so that sed handles it properly.
 MMSBASEURL_ESCAPE="${MMSBASEURL////\/}"
 
 # Modify the files with the supplied information
-sed "s/REPLACE_MMSGROUPID/$MMSGROUPID/g" automation-agent.config > automation-agent.config.1.tmp
-sed "s/REPLACE_MMSAPIKEY/$MMSAPIKEY/g" automation-agent.config.1.tmp > automation-agent.config.2.tmp
-sed "s/REPLACE_MMSBASEURL/$MMSBASEURL_ESCAPE/g" automation-agent.config.2.tmp > automation-agent.config.3.tmp
-sed "s/REPLACE_MMSBASEURL/$MMSBASEURL_ESCAPE/g" install-agent.sh > install-agent.sh.tmp
+cp automation-agent.config automation-agent.config.tmp
+sed -i .sed.tmp "s/REPLACE_MMSGROUPID/$MMSGROUPID/g" automation-agent.config.tmp
+sed -i .sed.tmp "s/REPLACE_MMSAPIKEY/$MMSAPIKEY/g" automation-agent.config.tmp
+sed -i .sed.tmp "s/REPLACE_MMSBASEURL/$MMSBASEURL_ESCAPE/g" automation-agent.config.tmp
+cp install-agent.sh install-agent.sh.tmp
 chmod +x install-agent.sh.tmp
-
-echo "Pulling cert from opsmgr-aws..."
-scp -i $HOME/Keys/$KEYFILE.pem ec2-user@opsmgr-aws:./opsmgrCA.pem . 
+sed -i .sed.tmp "s/REPLACE_MMSBASEURL/$MMSBASEURL_ESCAPE/g" install-agent.sh.tmp
+sed -i .sed.tmp "s/REPLACE_MMSINTERNALIP/$MMSINTERNALIP/g" install-agent.sh.tmp
 
 # Transfer the completed files to all agents.
 i="0"
@@ -44,9 +46,9 @@ while [ $i -lt $1 ]; do
   echo 
   echo Transfering files to agent$i...
 
-  scp -i $HOME/Keys/$KEYFILE.pem ./automation-agent.config.3.tmp ec2-user@agent$i:./automation-agent.config
+  scp -i $HOME/Keys/$KEYFILE.pem ./automation-agent.config.tmp ec2-user@agent$i:./automation-agent.config
   scp -i $HOME/Keys/$KEYFILE.pem ./install-agent.sh.tmp ec2-user@agent$i:./install-agent.sh
-  scp -i $HOME/Keys/$KEYFILE.pem ./opsmgrCA.pem ec2-user@agent$i:.
+  scp -i $HOME/Keys/$KEYFILE.pem ~/Downloads/opsmgrCA.pem ec2-user@agent$i:.
 
 done
 
@@ -56,7 +58,4 @@ rm *.tmp
 echo 
 echo Done.
 echo
-echo "Server cert is in local directory."
-echo "Import it via Keychain Access (Mac utility, drag and drop into login section)"
-echo "Double-click on it, switch Trust to 'Always Trust'"
 
