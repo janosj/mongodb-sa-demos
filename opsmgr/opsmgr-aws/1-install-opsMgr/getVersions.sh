@@ -20,10 +20,10 @@ wget -P /opt/mongodb/mms/mongodb-releases https://downloads.mongodb.com/linux/mo
 wget -P /opt/mongodb/mms/mongodb-releases https://downloads.mongodb.com/linux/mongodb-linux-x86_64-enterprise-rhel80-4.0.16.tgz
 wget -P /opt/mongodb/mms/mongodb-releases https://downloads.mongodb.com/linux/mongodb-linux-x86_64-enterprise-rhel80-3.6.17.tgz
 # RHEL7
-wget -P /opt/mongodb/mms/mongodb-releases https://downloads.mongodb.com/linux/mongodb-linux-x86_64-enterprise-rhel70-4.2.5.tgz
-wget -P /opt/mongodb/mms/mongodb-releases https://downloads.mongodb.com/linux/mongodb-linux-x86_64-enterprise-rhel70-4.2.3.tgz
-wget -P /opt/mongodb/mms/mongodb-releases https://downloads.mongodb.com/linux/mongodb-linux-x86_64-enterprise-rhel70-4.2.2.tgz
-wget -P /opt/mongodb/mms/mongodb-releases https://downloads.mongodb.com/linux/mongodb-linux-x86_64-enterprise-rhel70-4.2.1.tgz
+#wget -P /opt/mongodb/mms/mongodb-releases https://downloads.mongodb.com/linux/mongodb-linux-x86_64-enterprise-rhel70-4.2.5.tgz
+#wget -P /opt/mongodb/mms/mongodb-releases https://downloads.mongodb.com/linux/mongodb-linux-x86_64-enterprise-rhel70-4.2.3.tgz
+#wget -P /opt/mongodb/mms/mongodb-releases https://downloads.mongodb.com/linux/mongodb-linux-x86_64-enterprise-rhel70-4.2.2.tgz
+#wget -P /opt/mongodb/mms/mongodb-releases https://downloads.mongodb.com/linux/mongodb-linux-x86_64-enterprise-rhel70-4.2.1.tgz
 
 # for Kubernetes Operator (quay.io)
 wget -P /opt/mongodb/mms/mongodb-releases https://downloads.mongodb.com/linux/mongodb-linux-x86_64-enterprise-ubuntu1604-4.2.5.tgz
@@ -38,7 +38,7 @@ wget -P /opt/mongodb/mms/mongodb-releases https://fastdl.mongodb.org/tools/db/mo
 wget -P /opt/mongodb/mms/mongodb-releases https://fastdl.mongodb.org/tools/db/mongodb-database-tools-rhel80-x86_64-100.2.0.tgz
 wget -P /opt/mongodb/mms/mongodb-releases https://fastdl.mongodb.org/tools/db/mongodb-database-tools-rhel80-x86_64-100.1.0.tgz
 wget -P /opt/mongodb/mms/mongodb-releases https://fastdl.mongodb.org/tools/db/mongodb-database-tools-rhel80-x86_64-100.0.2.tgz
-wget -P /opt/mongodb/mms/mongodb-releases https://fastdl.mongodb.org/tools/db/mongodb-database-tools-rhel70-x86_64-100.0.2.tgz
+#wget -P /opt/mongodb/mms/mongodb-releases https://fastdl.mongodb.org/tools/db/mongodb-database-tools-rhel70-x86_64-100.0.2.tgz
 wget -P /opt/mongodb/mms/mongodb-releases https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu1604-x86_64-100.1.0.tgz
 
 chown -R mongodb-mms:mongodb-mms /opt/mongodb/mms/mongodb-releases/*
