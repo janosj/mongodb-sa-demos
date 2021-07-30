@@ -19,6 +19,10 @@ hostnamectl set-hostname opsmgr-aws
 echo "Setting timezone to US East Coast..."
 timedatectl set-timezone America/New_York
 
+# Install OS dependencies
+# Here: https://docs.opsmanager.mongodb.com/v4.4/tutorial/provisioning-prep/index.html#installing-mongodb-enterprise-dependencies
+sudo yum install -y cyrus-sasl cyrus-sasl-gssapi cyrus-sasl-plain krb5-libs libcurl net-snmp openldap openssl xz-libs
+
 
 # Step 1: Ensure ulimit settings meet minimum requirements.
 # Ops Manager fails if these aren't in place, especially once you enable backups.
